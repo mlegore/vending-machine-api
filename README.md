@@ -31,8 +31,8 @@ basic commands, such as `pay` and `select_products`
 
 1. Represent a basic data model that underlays the functionality.
 2. Prototype (quickly) simple API endpoints that allows the user to interact with the machine.
-3. Create at least one action in the UI/API that behaves the way the user would expect. 
-4. Choose whatever language you wish. Some options you might consider: Ruby, GoLang, Python, Scala, Erlang,, Javascript, and Clojure.
+3. Create at least one action in the API that behaves the way the user would expect. 
+4. Choose whatever language you wish. Some options you might consider: Ruby, GoLang, Python, Scala, Erlang, Javascript, and Clojure.
 5. Do NOT use a full-stack framework such as Rails, Django, or Play. You can use specific components of frameworks, however. (Ex: ActiveRecord)
 
 **Things you don't need:**
