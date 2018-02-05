@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to your Github coding test!
+Welcome to your GitHub coding test!
 
 We know you've already spent plenty of your personal time during interviews.
 Worry not; this is the last step of our process and it is designed to be
@@ -13,6 +13,13 @@ entire README.
 
 Good luck!
 
+## Instructions
+
+1. Read through this README for instructions and requirements;
+2. Fork the repository;
+3. Do the problem in your repo, using pull requests as a mechanism for grouping your code (feel free to merge your own PRs);
+4. Send us a message when you're done!
+
 ## Problem
 
 Create a RESTful API for a [vending machine](https://en.wikipedia.org/wiki/Vending_machine)
@@ -20,7 +27,7 @@ in the language of your choice. The vending machine can take any currency you
 wish, and can sell any products you wish. The vending machine should respond to
 basic commands, such as `pay` and `select_products` 
 
-Your primary objectives:
+**Your primary objectives:**
 
 1. Represent a basic data model that underlays the functionality.
 2. Prototype (quickly) simple API endpoints that allows the user to interact with the machine.
@@ -28,7 +35,7 @@ Your primary objectives:
 4. Choose whatever language you wish. Some options you might consider: Ruby, GoLang, Python, Scala, Erlang,, Javascript, and Clojure.
 5. Do NOT use a full-stack framework such as Rails, Django, or Play. You can use specific components of frameworks, however. (Ex: ActiveRecord)
 
-Things you don't need:
+**Things you don't need:**
 
 1. A working UI.
 2. Persistence. (You can  persist in-memory for now.)
