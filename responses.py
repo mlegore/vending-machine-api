@@ -1,4 +1,4 @@
-
+# Separate model definition from response definition, the backing store can change but the contract with app might not
 def product_response(product):
     return {
         'name': product.name,
