@@ -20,6 +20,7 @@ def get_product(id):
 
 @app.post('/purchase')
 def purchase():
+    # ensure we have a product, always do this before charging. chargebacks cost money
     product_reservation = products.reserve_product(request.json['product_id'])
 
     # Also might have used error class
@@ -32,6 +33,7 @@ def purchase():
     if(charge.success):
         return product_dispense_response(product_reservation)
 
+    # if the charge didn't go through, release the inventory back into stock
     products.release_product_reservation(product_reservation.product.id)
     return HTTPError(status=401, body={'error': charge.error})
 
