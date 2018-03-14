@@ -11,8 +11,15 @@ class CreditCard:
         self.expiration = expiration
         self.security_code = security_code
 
+class Charge:
+    def __init__(self, success, error=''):
+        self.success = success
+        self.error = error
+
 def charge(cc, amount, currency):
     limit = db.get(cc.cc_number)
-    if(limit == Nil or limit < amount):
-        return false
-    return true
+    if(limit == None):
+        return Charge(False, 'Invalid credit card number.')
+    if(limit < amount):
+        return Charge(False, 'Payment declined due to credit limit.')
+    return Charge(True)

@@ -12,3 +12,9 @@ def products_response(products, currency):
         'products': [product_response(product) for product in products],
         'currency': currency
     }
+
+def product_dispense_response(reservation):
+    return {
+        'product': product_response(reservation.product),
+        'redeem_code': reservation.redeem_code
+    }
