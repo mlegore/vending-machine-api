@@ -5,11 +5,11 @@ from responses import products_response, product_response, product_dispense_resp
 
 app = Bottle()
 
-@app.get('/products')
+@app.get('/v1/products')
 def get_products():
     return products_response(products.get_products(), 'USD')
 
-@app.get('/products/<id>')
+@app.get('/v1/products/<id>')
 def get_product(id):
     product = products.get_product(id)
 
@@ -18,7 +18,7 @@ def get_product(id):
         return HTTPError(status=404, body={'error': "Product not found."})
     return product_response(product)
 
-@app.post('/purchase')
+@app.post('/v1/purchase')
 def purchase():
     # ensure we have a product, always do this before charging. chargebacks cost money
     product_reservation = products.reserve_product(request.json['product_id'])
