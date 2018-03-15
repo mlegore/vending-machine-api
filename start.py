@@ -1,17 +1,25 @@
 from bottle import Bottle, route, run, install, JSONPlugin, request, HTTPError, error, response
-from services import products, payments
 import json
+
+from services.products import Products
+from services.payments import Payments
+from services.models.payments import CreditCard
+
 from responses import products_response, product_response, product_dispense_response
 
 app = Bottle()
 
+# initialize services
+products_db = Products()
+payments_service = Payments()
+
 @app.get('/v1/products')
 def get_products():
-    return products_response(products.get_products(), 'USD')
+    return products_response(products_db.get_products(), 'USD')
 
 @app.get('/v1/products/<id>')
 def get_product(id):
-    product = products.get_product(id)
+    product = products_db.get_product(id)
 
     # I might have done this with a custom error class, but that seems a bit heavyweight for this simple app
     if(product is None):
@@ -21,20 +29,20 @@ def get_product(id):
 @app.post('/v1/purchase')
 def purchase():
     # ensure we have a product, always do this before charging. chargebacks cost money
-    product_reservation = products.reserve_product(request.json['product_id'])
+    product_reservation = products_db.reserve_product(request.json['product_id'])
 
     # Also might have used error class
     if(product_reservation == None):
         return HTTPError(status=404, body={'error': "Product not found."})
 
-    cc = payments.CreditCard(request.json['cc_number'], request.json['expiration'], request.json['security_code'])
-    charge = payments.charge(cc, product_reservation.product.price, 'USD')
+    cc = CreditCard(request.json['cc_number'], request.json['expiration'], request.json['security_code'])
+    charge = payments_service.charge(cc, product_reservation.product.price, 'USD')
 
     if(charge.success):
         return product_dispense_response(product_reservation)
 
     # if the charge didn't go through, release the inventory back into stock
-    products.release_product_reservation(product_reservation.product.id)
+    products_db.release_product_reservation(product_reservation.product.id)
     return HTTPError(status=401, body={'error': charge.error})
 
 @app.error(400)
