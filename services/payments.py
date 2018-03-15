@@ -1,6 +1,3 @@
-# in a real service this would go off to some payment processor as an http request, but for this we'll store in memory
-# also the service probably wouldn't handle the cc number at all, but a reference to it
-
 from models.payments import Charge
 
 # in a real service this would go off to some payment processor as an http request, but for this we'll store in memory
